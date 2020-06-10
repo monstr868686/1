@@ -1,5 +1,6 @@
 package com.example.myapplicationvend001;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.BufferedReader;
@@ -11,13 +12,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.security.Permissions;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 
+import android.Manifest;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -30,6 +36,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -71,10 +80,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Integer kolvotochek;
     Integer pozvmassive;
 
+
+
+    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
 
 
 
@@ -148,6 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     }
+
 
 
     // процедура перехода на 1 элемент вперед в массиве
@@ -270,7 +288,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         // получаем путь к SD
-        File sdPath = Environment.getExternalStorageDirectory();
+        //File sdPath = Environment.getExternalStorageDirectory();
+        File sdPath = getExternalFilesDir(null);//getExternalStorageDirectory();
         // добавляем свой каталог к пути
         sdPath = new File(sdPath.getAbsolutePath() + "/" + DIR_SD);
         // создаем каталог
@@ -322,7 +341,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         // получаем путь к SD
-        File sdPath = Environment.getExternalStorageDirectory();
+       // File sdPath = Environment.getExternalStorageDirectory();
+        File sdPath = getExternalFilesDir(null);
         // добавляем свой каталог к пути
         sdPath = new File(sdPath.getAbsolutePath() + "/" + DIR_SD);
         // создаем каталог
@@ -374,7 +394,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return;
         }
         // получаем путь к SD
-        File sdPath = Environment.getExternalStorageDirectory();
+        //File sdPath = Environment.getExternalStorageDirectory();
+        File sdPath = getExternalFilesDir(null);
         // добавляем свой каталог к пути
         sdPath = new File(sdPath.getAbsolutePath() + "/" + DIR_SD);
         // создаем каталог
@@ -510,4 +531,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
